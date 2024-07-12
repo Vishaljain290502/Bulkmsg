@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-import cors from 'cors';
+const cors = require('cors');
 const { connectDB, disconnectDB } = require('./db');
 const { fetchUser } = require('./modules/userModule/user.schema'); 
 const { sendEmail } = require('./sendMail');
@@ -10,9 +10,10 @@ const mailRoutes = require('./modules/mailModule/mail.routes');
 
 dotenv.config();
 
-app.use(cors());
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 
 async function main() {
   await connectDB();
