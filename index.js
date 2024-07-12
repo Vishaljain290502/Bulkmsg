@@ -1,7 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
+import cors from 'cors';
 const { connectDB, disconnectDB } = require('./db');
-const { fetchUser } = require('./modules/userModule/user.schema'); // Ensure this path is correct
+const { fetchUser } = require('./modules/userModule/user.schema'); 
 const { sendEmail } = require('./sendMail');
 const userRoutes = require('./modules/userModule/user.routes');
 const companyRoutes = require('./modules/companyModule/company.routes');
@@ -9,6 +10,7 @@ const mailRoutes = require('./modules/mailModule/mail.routes');
 
 dotenv.config();
 
+app.use(cors());
 const app = express();
 app.use(express.json());
 
