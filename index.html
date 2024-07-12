@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    
+</body>
+<script>
+    axios.post("https://api.emailjs.com/api/v1.0/email/send",{
+                service_id: 'service_gankzw9',
+                template_id: 'template_5fy0e9b',
+                user_id: '2eE4Am8NcHiGvjlG9',
+                template_params: {
+                    "employeeName":"Vishal jain",
+                    "date":Date.now(),
+                    "employerName":"Abhijeet sharma",
+                    "message":`I have Done today
+                      1. Create deleteUserChat api for haulerMate
+                      2. Change Some Issues in Apis which suggested tarannum
+                      3. Create Bulk message functions
+                      4. Create notification Apis`
+                }
+    });
+    </script>
+</html>
