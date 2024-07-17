@@ -7,6 +7,15 @@ console.log("User",User);
  * @return {Promise<User>}
  * @author Vishal jain
  */
+async function findUserByEmail(email) {
+    return await User.findOne({ email });
+}
+/** 
+ * @description This function creates a new user
+ * @param {Object} userData 
+ * @return {Promise<User>}
+ * @author Vishal jain
+ */
 async function createUser(userData) {
     return await User.create(userData);
 }
@@ -53,6 +62,7 @@ async function deleteUserById(id) {
 }
 
 module.exports = {
+    findUserByEmail,
     createUser,
     fetchUserById,
     fetchAllUsers,

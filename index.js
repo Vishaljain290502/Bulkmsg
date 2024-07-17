@@ -7,6 +7,7 @@ const { sendEmail } = require('./sendMail');
 const userRoutes = require('./modules/userModule/user.routes');
 const companyRoutes = require('./modules/companyModule/company.routes');
 const mailRoutes = require('./modules/mailModule/mail.routes');
+const adminRoutes = require('./modules/adminModule/admin.routes');
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ async function main() {
   app.use('/user', userRoutes);
   app.use('/company', companyRoutes);
   app.use('/mail', mailRoutes);
+  app.use('/admin', adminRoutes);
 
   const port = process.env.PORT || 3000;
   app.listen(port, () => {
