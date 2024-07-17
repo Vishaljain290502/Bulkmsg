@@ -1,13 +1,5 @@
 /project-root
-|-- /controllers
-|   |-- adminController.js
-|   |-- driverController.js
-|-- /routes
-|   |-- adminRoutes.js
-|   |-- driverRoutes.js
-|-- /models
-|   |-- userModel.js
-|-- server.js
+
 |-- /modules
     |--/adminModule
                  |-- admin.controller.js
@@ -20,7 +12,17 @@
                  |-- company.schema.js
                  |-- company.service.js
     |--/mailModule
-                 |
+                 |-- mail.controller.js
+                 |-- mail.routes.js
+                 |-- mail.schema.js
+                 |-- mail.service.js
+    |--/userModule
+                 |-- user.controller.js
+                 |-- user.routes.js
+                 |-- user.schema.js
+                 |-- user.service.js   
+.env
+index.js         
 #  DOTenv
 .env
 
