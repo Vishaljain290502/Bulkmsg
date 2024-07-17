@@ -21,9 +21,8 @@
                  |-- user.routes.js
                  |-- user.schema.js
                  |-- user.service.js   
-.env
-index.js         
+.env         
 #  DOTenv
-
 .env
+
 node_modules/
