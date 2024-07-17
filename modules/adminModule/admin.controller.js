@@ -1,5 +1,5 @@
 const express = require('express');
-
+const bcrypt = require('bcryptjs');
 const userService = require('./admin.service');
 const userModel = require("./admin.schema");
 
@@ -18,17 +18,18 @@ async function loginUser(req, res) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        const isMatch = await user.password;
+        const isMatch = await bcrypt.compare(password, user.password);
+
+       
 
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-      
 
         res.status(200).json({
             success: true,
-            message: 'Login successful'
+            message: 'Login successful',
         });
     } catch (error) {
         res.status(500).json({
@@ -47,12 +48,13 @@ async function loginUser(req, res) {
 async function createUser(req, res) {
     try {
         const { name, email, password } = req.body;
-        const user = await userService.findUserByEmail(email);
 
-        if (user) {
-            return res.status(404).json({status:404, message: 'Email already in use' });
-        }
-        const newUser = await userService.createUser({ name, email , password });
+        // Hash the password before saving
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const newUser = await userService.createUser({ name, email, password: hashedPassword });
+
         res.status(201).json({
             success: true,
             message: "User created successfully",
@@ -66,6 +68,7 @@ async function createUser(req, res) {
         });
     }
 }
+
 
 module.exports = {
     loginUser,

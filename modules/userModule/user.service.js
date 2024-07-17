@@ -1,5 +1,4 @@
 const User = require("./user.schema");
-console.log("User",User);
 
 /** 
  * @description This function creates a new user

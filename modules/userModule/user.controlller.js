@@ -10,7 +10,6 @@ const userModel = require("./user.schema");
  * @param {Object} res - Express response object
  */
 async function createUser(req, res) {
-    console.log("userModel",userModel);
     try {
         const { name, email, company } = req.body;
         const newUser = await userService.createUser({ name, email, company });
