@@ -28,7 +28,7 @@ async function fetchmailById(id) {
  * @author Vishal jain
  */
 async function fetchAllmails() {
-    return await mail.find();
+    return await mail.find().populate("userId");
 }
 
 /** 

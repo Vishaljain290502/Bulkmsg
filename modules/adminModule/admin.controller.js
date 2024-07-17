@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const userService = require('./admin.service');
 const userModel = require("./admin.schema");
+const jwt = require('jsonwebtoken');
+
 
 /**
  * @description Login a user and return a JWT token
@@ -20,16 +22,19 @@ async function loginUser(req, res) {
 
         const isMatch = await bcrypt.compare(password, user.password);
 
-       
-
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
+        const token = jwt.sign(
+            { id: user._id },
+            process.env.JWT_SECRET
+        );
 
         res.status(200).json({
             success: true,
             message: 'Login successful',
+            token: token
         });
     } catch (error) {
         res.status(500).json({
@@ -39,6 +44,7 @@ async function loginUser(req, res) {
         });
     }
 }
+
 
 /**
  * @description Create a new user

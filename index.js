@@ -15,23 +15,23 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// nodeCron.schedule('*/30 * * * * *', async () => {
+//   try {
+//     const generatedSubject = await generateMail('');
+//     const generatedText = await generateMail('');
+
+//     await sendEmail('recipient@example.com', Subject, Text);
+
+//     console.log('Email sent successfully.');
+//   } catch (error) {
+//     console.error('Error sending email:', error);
+//   }
+// });
+
 
 async function main() {
   await connectDB();
 
-  // const user = await fetchUser({});
-  // if (user) {
-  //   sendEmail(
-  //     user.email,
-  //     'EOD Report',
-  //     `Hello Abhijeet Sir!
-  //      This is My Eod Ihave Done today
-  //      1. Create deleteUserChat api for haulerMate 
-  //      2. Change Some Issues in Apis which suggested tarannum
-  //      3. create Bulk message functions
-  //      4. create notification Apis`
-  //   );
-  // }
 
   app.use('/user', userRoutes);
   app.use('/company', companyRoutes);

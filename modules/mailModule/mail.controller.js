@@ -19,7 +19,6 @@ async function getAllmails(req, res) {
 
 async function sentMail(req, res)  {
     const mailId = req.params.id;
-  
     try {
       const mail = await Mail.findByIdAndUpdate(mailId, { sent: true }, { new: true });
   
