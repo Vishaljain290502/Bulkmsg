@@ -24,6 +24,6 @@
 .env
 index.js         
 #  DOTenv
-.env
 
+.env
 node_modules/
