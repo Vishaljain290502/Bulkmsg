@@ -52,10 +52,20 @@ async function deletemailById(id) {
     return await mail.findByIdAndDelete(id);
 }
 
+/** 
+ * @description This function deletes a mail by Id
+ * @param {ObjectId} id 
+ * @return {Promise<mail>}
+ * @author Vishal jain
+ */
+async function fetchMailToSend() {
+    return await mail.find({shouldSent:true,isSent:false},).populate("userId")
+}
 module.exports = {
     createmail,
     fetchmailById,
     fetchAllmails,
     updatemailById,
-    deletemailById
+    deletemailById,
+    fetchMailToSend
 };

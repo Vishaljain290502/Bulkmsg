@@ -10,6 +10,7 @@ const userSchema = new Schema(
     firstMailSentOn: { type: Date },
     secondMailSentOn: { type: Date },
     thirdMailSentOn: { type: Date },
+    position: {type:String},
     mails: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Mail' }]
   },
   { timestamps: true }

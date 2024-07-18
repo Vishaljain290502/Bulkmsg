@@ -6,7 +6,8 @@ const mailSchema = new Schema({
     body: { type:String, trim:true },
     userId:{  type: mongoose.Schema.Types.ObjectId,
     ref: "User",},
-    sent:{type:Boolean, default:false},
+    shouldSent:{type:Boolean, default:false},
+    isSent:{type:Boolean, default:false},
 },{timestamps:true})
 
 const Mail = mongoose.model.Mail || mongoose.model("Mail", mailSchema);
