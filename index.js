@@ -6,6 +6,7 @@ const { sendEmail } = require('./sendMail');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const nodeCron = require('node-cron');
 const mailService = require('./modules/mailModule/mail.service');
+const scrapeCompanyInfo = require('./modules/scraping/scraper');
 
 dotenv.config();
 
@@ -29,6 +30,16 @@ nodeCron.schedule('*/30 * * * * *', async () => {
 async function main() {
   await connectDB();
 
+  app.post('/scrape', async (req, res) => {
+    const { url } = req.body;
+  
+    try {
+      const company = await scrapeCompanyInfo(url); // Scrape the company info
+      res.status(200).json(company); // Respond with the company info
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to scrape company info' });
+    }
+  });
   app.use('/user', require('./modules/userModule/user.routes'));
   app.use('/company', require('./modules/companyModule/company.routes'));
   app.use('/mail', require('./modules/mailModule/mail.routes'));
