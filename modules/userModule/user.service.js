@@ -1,8 +1,8 @@
 const User = require("./user.schema");
 
 /** 
- * @description This function creates a new user
- * @param {Object} userData 
+ * @description This function finds user by email
+ * @param {string} email 
  * @return {Promise<User>}
  * @author Vishal jain
  */

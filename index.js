@@ -16,7 +16,6 @@ app.use(cors());
 nodeCron.schedule('*/30 * * * * *', async () => {
   try {
  const mails = await mailService.fetchMailToSend();
- console.log("mails",mails);
   for (i = 0; i < mails.length; i++){
     await sendEmail(mails[i].userId.email, mails[i].subject,mails[i].body);
     console.log(`Mail sent to ${mails[i].userId.email}`);
