@@ -34,8 +34,8 @@ async function main() {
     const { url } = req.body;
   
     try {
-      const company = await scrapeCompanyInfo(url); // Scrape the company info
-      res.status(200).json(company); // Respond with the company info
+      const company = await scrapeCompanyInfo(url);
+      res.status(200).json(company);
     } catch (error) {
       res.status(500).json({ error: 'Failed to scrape company info' });
     }

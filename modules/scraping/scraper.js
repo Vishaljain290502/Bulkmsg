@@ -1,4 +1,3 @@
-// scraper.js
 const axios = require('axios');
 const cheerio = require('cheerio');
 const Company = require('../companyModule/company.schema');
@@ -50,6 +49,6 @@ async function scrapeCompanyInfo(url) {
       console.error('Error scraping company info:', error);
       throw error;
     }
-  }
+}
   
   module.exports = scrapeCompanyInfo;

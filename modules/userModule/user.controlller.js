@@ -1,5 +1,4 @@
 const express = require("express");
-// const User = require('../models/userSchema');
 const userService = require("./user.service");
 const companyService = require("../companyModule/company.service");
 const mailService = require("../mailModule/mail.service");
@@ -16,10 +15,7 @@ async function generateMail(prompt) {
     const result = await model.generateContent(prompt);
     const text = result.response.text().trim();
 
-    // Extract first sentence or a specific number of characters for subject
-    const subject = text.split(".")[0] || text.substring(0, 50); // Adjust length as needed
-
-    return { subject }; // Only return the subject
+    return text; // Return the generated text directly
   } catch (error) {
     console.error("Error generating content:", error.message, error.stack);
     throw error;
@@ -47,17 +43,47 @@ async function createUser(req, res) {
         message: "Failed to fetch company",
       });
     }
-    const subjectPrompt = `Generate one single line email subject for this information Company name: ${company.name} Company description: ${company.description}`;
-    const subjectResult = await generateMail(subjectPrompt);
-    const subject = typeof subjectResult === "string" ? subjectResult : subjectResult.subject;
-    
-    const bodyPrompt = `Generate a professional email body based on the following user and company information:
-    User: ${user.name}, ${user.email}
-    Company: ${company.name}, ${company.description}
-    The email should introduce the company's relevant services, address the user's potential needs based on the subject, and include a compelling call to action. The body should not include the subject line.`;
-    const bodyResult = await generateMail(bodyPrompt);
-    const body = typeof bodyResult === "string" ? bodyResult : bodyResult.body;
-    
+
+    // const subjectPrompt = `Generate one liner email subject with high opening rate for this information ${company.description}`;
+
+    const bodyPrompt = ` An ISO-certified and DIPP-recognized by the Government of India, Aurasoft stands at the forefront of technological advancement.
+At Aurasoft, we’re more than developers – we’re your strategic partners in digital transformation. Our AI-powered approach accelerates development lifecycles, enabling faster time-to-market and robust solutions tailored to your unique needs.
+We are providing
+Website development
+web app development
+mobile app development
+Cloud solutions
+Saas Solution
+AWS services
+GCP Services
+Data Analytics
+Data Visualization
+Power BI
+BI Dashboarding
+We also serve across these Industries
+Real Estate
+Eduacation
+Fitness & Wellness
+Beauty 
+Healthcare
+Ecommerce
+
+This information is our Company website 
+
+And This is the iformation of our Targeted Company
+    Based on the following user and company information, understand their services & offerings and generate a professional sales email body on behalf of Aurasoft that can help them to achieve their digital goals in the space of Web & Mobility, SaaS, MVP, Cloud Solutions & Reengineering with emerging techs.
+The email should introduce the Aurasoft's relevant services, address the user's potential needs based on the subject, and include a compelling call to action. The body should not include the subject line
+    user: ${user.name}
+    company deacription: ${company.description}
+    Generate small and relevant to the service we provided and git ve one Discover a call
+    we dont want subject inside the body.
+    `;
+    const body = await generateMail(bodyPrompt);
+    const subject = await generateMail(
+      `Generate a subject line for this given body ${body},only give a single string`
+
+    );
+    console.log("subject", subject);
     await mailService.createmail({ userId: user._id, subject, body });
     res.status(201).json({
       success: true,
@@ -73,6 +99,7 @@ async function createUser(req, res) {
     });
   }
 }
+
 /**
  * @description Get all users
  * @param {Object} req - Express request object
@@ -159,7 +186,7 @@ async function updateUser(req, res) {
  */
 async function deleteUserById(req, res) {
   try {
-    const deletedUser = await userService.deleteUser(req.params.id);
+    const deletedUser = await userService.deleteUserById(req.params.id);
     if (!deletedUser) {
       return res.status(404).json({
         success: false,
