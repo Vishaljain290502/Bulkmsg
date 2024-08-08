@@ -5,13 +5,15 @@ const userSchema = new Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
+    contact: { type: String },
+    socialProfile: { type: String },
     isMailSent: { type: Boolean, default: false },
     company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
     firstMailSentOn: { type: Date },
     secondMailSentOn: { type: Date },
     thirdMailSentOn: { type: Date },
     position: {type:String},
-    mails: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Mail' }]
+    mails: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Mail' }],
   },
   { timestamps: true }
 );

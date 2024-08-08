@@ -9,14 +9,14 @@ const companyService = require('./company.service');
  */
 async function createcompany(req, res) {
     try {
-        const { name , description} = req.body;
+        const companyData = req.body;
 
-        const newcompany = await companyService.createCompany({ name, description });
+        const newCompany = await companyService.createCompany(companyData);
 
         res.status(201).json({
             success: true,
-            message: "company created successfully",
-            company: newcompany
+            message: "Company created successfully",
+            company: newCompany
         });
     } catch (error) {
         res.status(500).json({
@@ -26,6 +26,7 @@ async function createcompany(req, res) {
         });
     }
 }
+
 
 
 /**
